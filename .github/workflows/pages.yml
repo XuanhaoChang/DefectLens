@@ -6,6 +6,8 @@ on:
     paths:
       - 'web_app/**'
       - 'paper_site/**'
+      - 'scripts/fetch_paper_examples.py'
+      - 'tests/test_paper_examples.py'
       - 'av_eval/web_*.py'
       - 'tests/test_web_*.py'
       - 'tests/test_web_events.mjs'
@@ -46,11 +48,13 @@ jobs:
       - run: node --test tests/test_web_render.mjs
       - run: python -m unittest discover -s tests -p 'test_configure_ngrok_access.py' -v
       - run: python -m unittest discover -s tests -p 'test_configure_github_access.py' -v
+      - run: python -m unittest discover -s tests -p 'test_paper_examples.py' -v
       - name: Assemble paper site and existing evaluation app
         run: |
           mkdir -p _site/eval _site/assets
           cp -a web_app/. _site/eval/
           cp -a paper_site/. _site/
+          python scripts/fetch_paper_examples.py --output _site/assets
           curl --fail --location --retry 3 --max-time 300 \
             https://huggingface.co/datasets/XuanhaoChang/DefectLens-Demo/resolve/43dc2a46a89a677e2f5bfb5b4d8cfdf46b90c20f/defectlens-demo-v3.1.mp4 \
             --output _site/assets/defectlens-demo-v3.1.mp4

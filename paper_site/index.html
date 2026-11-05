@@ -10,14 +10,14 @@
   <meta property="og:type" content="website">
   <title>DefectLens · Detecting and Localizing Errors in Generated Audio-Video</title>
   <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=dab8066575d1">
+  <link rel="stylesheet" href="styles.css?v=a8fd1ee75b5e">
   <script src="app.js" defer></script>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
   <header class="topbar">
     <a class="brand" href="./" aria-label="DefectLens home"><span class="brand-icon" aria-hidden="true"></span>DefectLens</a>
-    <nav class="nav" aria-label="Main navigation"><a href="#overview">Overview</a><a href="#demo">Video</a><a href="#approach">Approach</a><a href="#results">Results</a></nav>
+    <nav class="nav" aria-label="Main navigation"><a href="#overview">Overview</a><a href="#demo">Video</a><a href="#approach">Approach</a><a href="#results">Results</a><a href="#examples">Examples</a></nav>
     <a class="nav-action" href="./eval/">Evaluation app <span aria-hidden="true">↗</span></a>
   </header>
   <main id="main">
@@ -52,6 +52,55 @@
       <p class="results-footnote">Joint localization recall evaluates issue recovery together with eligible temporal and spatial localization. Values follow the current manuscript.</p></div></section>
 
     <section class="closing wrap"><div><p class="eyebrow">CONTINUE EXPLORING</p><h2>Look closer<span class="period">.</span></h2><p>Explore the code, the public dataset, or the evaluation interface.</p></div><div class="closing-links"><a href="https://github.com/XuanhaoChang/AVagent-Eval"><span>01</span> Code <b>↗</b></a><a href="https://huggingface.co/datasets/XuanhaoChang/DefectLens-H3"><span>02</span> DefectLens-H3 dataset <b>↗</b></a><a href="./eval/"><span>03</span> Evaluation app <b>↗</b></a></div></section>
+
+    <section class="examples-section wrap" id="examples" aria-labelledby="examples-title">
+      <div class="section-top"><div><p class="eyebrow">05 / EXAMPLES</p><h2 id="examples-title">Inspect five examples<span class="period">.</span></h2></div><p>Reference images, original prompts,<br>generated clips, and reported findings.</p></div>
+      <p class="examples-intro">Play each clip with audio and compare it with the reference images and full generation prompt. Prompts and issue descriptions are shown in their original Chinese.</p>
+      <p class="sample-note" id="examples-note">Sample 1 contains a low-confidence synchronization candidate. Samples 2 and 3 have empty issue lists; this does not establish that the clips are defect-free. Bounding boxes use normalized coordinates (x1, y1, x2, y2).</p>
+      <div class="examples-scroll" role="region" aria-label="Five video examples" tabindex="0">
+        <table class="examples-table" aria-describedby="examples-note">
+          <caption>Five supplied examples: inputs, generated videos, and issue records</caption>
+          <thead><tr><th scope="col">Example</th><th scope="col">Reference images</th><th scope="col">Generated video</th><th scope="col">Generation prompt</th><th scope="col">Reported findings</th></tr></thead>
+          <tbody>
+          <tr id="sample-1">
+            <th scope="row"><span class="sample-number">01</span>Portrait consistency</th>
+            <td><div class="sample-references"><a href="assets/examples/sample1/reference-1.png" target="_blank" rel="noreferrer"><img src="assets/examples/sample1/reference-1.png" alt="Sample 1, reference 1" loading="lazy" width="120" height="150"></a></div></td>
+            <td><video controls playsinline preload="none" aria-label="Sample 1: Portrait consistency"><source src="assets/examples/sample1/sample1.mp4" type="video/mp4">Your browser cannot play this video.</video><a class="sample-download" href="assets/examples/sample1/sample1.mp4">Open video ↗</a></td>
+            <td><details><summary>Read full prompt</summary><p lang="zh-CN">参考图像中的女性角色，保持她的五官、黑色齐肩发、藏青色风衣与灰色圆领针织衫完全一致，生成一段8秒写实街拍短片。镜头一：正面中景，她站在玻璃幕墙前，微风轻拂发丝；镜头二：缓慢推近至近景，她抬眼看向镜头，眼神自然；镜头三：侧后方半身，她转身走向画面右侧。三个镜头中必须是同一张脸、同一套服装，肤色、发丝与风衣扣子细节一致，阴天自然光，浅景深，35mm镜头质感。无对白，只有轻微城市环境声。</p></details></td>
+            <td><p class="finding-status">Low-confidence candidate</p><p lang="zh-CN">AVBench 音画同步检测提示低置信度音画不同步候选（sync_decision: desync_candidate, confidence_status: uncertain）。整体音频偏移为 -0.32 秒（-8 帧），置信度为 0.6643，最小距离为 6.2360。轨迹 track_00000 偏移为 0.0 秒（置信度 0.8289），track_00001 偏移为 -0.6 秒（置信度 0.4996）。</p><dl class="sample-location"><div><dt>Type</dt><dd lang="zh-CN">音频质量问题</dd></div><div><dt>Interval</dt><dd>00:00-00:08</dd></div></dl></td>
+          </tr>
+          <tr id="sample-2">
+            <th scope="row"><span class="sample-number">02</span>Single-speaker dialogue</th>
+            <td><div class="sample-references"><a href="assets/examples/sample2/reference-1.png" target="_blank" rel="noreferrer"><img src="assets/examples/sample2/reference-1.png" alt="Sample 2, reference 1" loading="lazy" width="120" height="150"></a></div></td>
+            <td><video controls playsinline preload="none" aria-label="Sample 2: Single-speaker dialogue"><source src="assets/examples/sample2/sample2.mp4" type="video/mp4">Your browser cannot play this video.</video><a class="sample-download" href="assets/examples/sample2/sample2.mp4">Open video ↗</a></td>
+            <td><details><summary>Read full prompt</summary><p lang="zh-CN">参考图像中的女性角色，保持五官、发型与藏青色风衣一致。固定机位中近景，室内柔和侧光，她面对镜头自然说话，台词为：&quot;今天风有点大，我们走快一点吧。&quot;&quot;路上小心，到家给我发个消息。&quot; 两句话之间有一次停顿和轻微点头。要求口型与中文台词逐字同步，语速自然，表情克制，声音为清亮年轻女声，背景为安静室内环境音。画面写实，人物身份全程稳定。</p></details></td>
+            <td><p class="finding-status">No issues reported</p><p class="sample-note">The supplied issue list is empty.</p></td>
+          </tr>
+          <tr id="sample-3">
+            <th scope="row"><span class="sample-number">03</span>Two-speaker dialogue</th>
+            <td><div class="sample-references"><a href="assets/examples/sample3/reference-1.png" target="_blank" rel="noreferrer"><img src="assets/examples/sample3/reference-1.png" alt="Sample 3, reference 1" loading="lazy" width="120" height="150"></a><a href="assets/examples/sample3/reference-2.png" target="_blank" rel="noreferrer"><img src="assets/examples/sample3/reference-2.png" alt="Sample 3, reference 2" loading="lazy" width="120" height="150"></a></div></td>
+            <td><video controls playsinline preload="none" aria-label="Sample 3: Two-speaker dialogue"><source src="assets/examples/sample3/sample3.mp4" type="video/mp4">Your browser cannot play this video.</video><a class="sample-download" href="assets/examples/sample3/sample3.mp4">Open video ↗</a></td>
+            <td><details><summary>Read full prompt</summary><p lang="zh-CN">参考@图像1中的女性和@图像2中的男性，保持两人的五官、发型与服装一致，生成咖啡馆双人对白。中景双人构图，女性在画面左侧，男性在右侧。台词顺序严格如下：女性先说：&quot;你今天怎么来得这么早？&quot;；男性回答：&quot;路上没堵车，就先到了。&quot;；接着女性笑着说：&quot;那正好，我也刚到。&quot; 每句台词只由对应人物开口，未说话的人保持自然倾听表情，不得抢话或出现口型。口型与中文台词严格同步，环境为咖啡馆低频人声与杯碟声。画面写实，人物身份稳定。</p></details></td>
+            <td><p class="finding-status">No issues reported</p><p class="sample-note">The supplied issue list is empty.</p></td>
+          </tr>
+          <tr id="sample-4">
+            <th scope="row"><span class="sample-number">04</span>Dance sequence</th>
+            <td><div class="sample-references"><a href="assets/examples/sample4/reference-1.jpg" target="_blank" rel="noreferrer"><img src="assets/examples/sample4/reference-1.jpg" alt="Sample 4, reference 1" loading="lazy" width="120" height="150"></a></div></td>
+            <td><video controls playsinline preload="none" aria-label="Sample 4: Dance sequence"><source src="assets/examples/sample4/sample4.mp4" type="video/mp4">Your browser cannot play this video.</video><a class="sample-download" href="assets/examples/sample4/sample4.mp4">Open video ↗</a></td>
+            <td><details><summary>Read full prompt</summary><p lang="zh-CN">参考@图像1中的两人及其服装，保持全身外观一致，生成一段10秒双人街舞。黄昏城市广场全景，两人并排站立开始，动作顺序严格为：① 同时抬手并侧向跨步；② 女性向前交叉步、男性后撤一步；③ 两人同时下蹲并做手臂波浪；④ 同时起跳，落地时稳定停住。动作衔接连贯，重心合理，起跳与落地符合重力，两人保持各自的发型与服装一致。镜头缓慢横移跟拍，全身始终入画。无对白，配轻快鼓点。</p></details></td>
+            <td><p class="finding-status">Reported issue · High confidence</p><p lang="zh-CN">prompt要求动作顺序严格包含“同时起跳，落地时稳定停住”，但视频在8.00s-9.50s区间未生成起跳及空中动作，两人直接从下蹲姿势瞬间切换为站立，缺少起跳与落地的连贯动作。</p><dl class="sample-location"><div><dt>Type</dt><dd lang="zh-CN">动作异常</dd></div><div><dt>Interval</dt><dd>8s - 9.5s</dd></div><div><dt>Keyframe</dt><dd>8.50 s</dd></div><div><dt>BBox (normalized)</dt><dd>0.15,0.32,0.93,0.62</dd></div></dl></td>
+          </tr>
+          <tr id="sample-5">
+            <th scope="row"><span class="sample-number">05</span>Packaging text</th>
+            <td><div class="sample-references"><a href="assets/examples/sample5/reference-1.png" target="_blank" rel="noreferrer"><img src="assets/examples/sample5/reference-1.png" alt="Sample 5, reference 1" loading="lazy" width="120" height="150"></a></div></td>
+            <td><video controls playsinline preload="none" aria-label="Sample 5: Packaging text"><source src="assets/examples/sample5/sample5.mp4" type="video/mp4">Your browser cannot play this video.</video><a class="sample-download" href="assets/examples/sample5/sample5.mp4">Open video ↗</a></td>
+            <td><details><summary>Read full prompt</summary><p lang="zh-CN">参考@图像中的产品包装，保持盒型、米黄色纸质感、绿色茶叶Logo与山形图案完全一致。微距产品广告镜头，镜头缓慢推近并绕盒体轻微环绕。盒身文字必须逐字清晰可读：&quot;AURORA TEA&quot;、&quot;高山云雾绿茶&quot;、&quot;净含量 50 克&quot;。文字、Logo与包装边缘不得变形，不得出现乱码、错字或重复笔画，透视与光影符合现实。背景为暖色墙面与木质桌面，柔和自然光，浅景深。无对白，配舒缓背景音乐。</p></details></td>
+            <td><p class="finding-status">Reported issue · High confidence</p><p lang="zh-CN">prompt要求盒身文字不得出现乱码、错字或重复，而生成视频中包装盒正面上下重复印制了两组“高山云雾绿茶”与“净含量 50克”文字。</p><dl class="sample-location"><div><dt>Type</dt><dd lang="zh-CN">文字质量问题</dd></div><div><dt>Interval</dt><dd>0s - 7.5s</dd></div><div><dt>Keyframe</dt><dd>4.00 s</dd></div><div><dt>BBox (normalized)</dt><dd>0.35,0.5,0.65,0.88</dd></div></dl></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
   </main>
   <footer class="footer wrap"><a class="brand" href="./"><span class="brand-icon" aria-hidden="true"></span>DefectLens</a><span>Detecting and Localizing Errors in Generated Audio-Video</span><a href="#overview">Back to top ↑</a></footer>
 </body>

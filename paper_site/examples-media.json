@@ -1,0 +1,50 @@
+{
+  "repository": "XuanhaoChang/DefectLens-Demo",
+  "revision": "d069b77d547fc19d2ed51bc1f7e0f057592d3e38",
+  "assets": [
+    {
+      "path": "examples/sample1/sample1.mp4",
+      "sha256": "578572dfc4b6cb83582c6c3df151a036e8af8741d733a4e50eb004e5225536e1"
+    },
+    {
+      "path": "examples/sample1/reference-1.png",
+      "sha256": "e1679e6840cb78a8ae6948425069f048ea95db29d37ced4598cc518b6ebf704d"
+    },
+    {
+      "path": "examples/sample2/sample2.mp4",
+      "sha256": "043295e2a5a06b7802bacf1cede1c90d6f92af8339220323c170be8d3e80e842"
+    },
+    {
+      "path": "examples/sample2/reference-1.png",
+      "sha256": "e1679e6840cb78a8ae6948425069f048ea95db29d37ced4598cc518b6ebf704d"
+    },
+    {
+      "path": "examples/sample3/sample3.mp4",
+      "sha256": "190428d64dd999a684071b1fd27b23733ba835a1fcbb40e440886f295a4303e2"
+    },
+    {
+      "path": "examples/sample3/reference-1.png",
+      "sha256": "e1679e6840cb78a8ae6948425069f048ea95db29d37ced4598cc518b6ebf704d"
+    },
+    {
+      "path": "examples/sample3/reference-2.png",
+      "sha256": "08f14ff4edc8206e5320a634f8bb4a3227284b88ec1d5365766907bb110fb5a6"
+    },
+    {
+      "path": "examples/sample4/sample4.mp4",
+      "sha256": "6f5ef23b66146d8465dd299a3905e862754d018634570b97bfad3a0c95aed0d0"
+    },
+    {
+      "path": "examples/sample4/reference-1.jpg",
+      "sha256": "b86aa0a4358530bf63a1513b07f1b811dbcaf234eb93975250371394b44b4173"
+    },
+    {
+      "path": "examples/sample5/sample5.mp4",
+      "sha256": "c2567f581db88df8106f014c38f1c8c1a98a2ca038a0a4e4520df7d00057c81d"
+    },
+    {
+      "path": "examples/sample5/reference-1.png",
+      "sha256": "5c7ed4b79c52272eb24cb902e3acd91dec586d2891bf568fb9b69a0196318af8"
+    }
+  ]
+}
