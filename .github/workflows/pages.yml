@@ -43,12 +43,14 @@ jobs:
       - name: Set up FFmpeg and ffprobe
         run: |
           if ! command -v ffmpeg >/dev/null || ! command -v ffprobe >/dev/null; then
-            # Use Ubuntu's signed packages; unrelated third-party apt sources
-            # must not prevent the paper site from being published.
-            sudo apt-get update -o Acquire::Retries=3 \
-              -o Dir::Etc::sourcelist=/etc/apt/sources.list.d/ubuntu.sources \
-              -o Dir::Etc::sourceparts=- -o APT::Get::List-Cleanup=0
-            sudo apt-get install --no-install-recommends -y ffmpeg
+            # Bundled static tools avoid external binary download hooks and apt mirrors.
+            npm install --prefix "$RUNNER_TEMP/media-tools" --ignore-scripts --no-audit --no-fund \
+              @ffmpeg-installer/linux-x64@4.1.0 @ffprobe-installer/linux-x64@5.2.0
+            tools="$RUNNER_TEMP/media-tools/node_modules"
+            chmod +x "$tools/@ffmpeg-installer/linux-x64/ffmpeg" "$tools/@ffprobe-installer/linux-x64/ffprobe"
+            echo "$tools/@ffmpeg-installer/linux-x64" >> "$GITHUB_PATH"
+            echo "$tools/@ffprobe-installer/linux-x64" >> "$GITHUB_PATH"
+            export PATH="$tools/@ffmpeg-installer/linux-x64:$tools/@ffprobe-installer/linux-x64:$PATH"
           fi
           ffmpeg -version
           ffprobe -version
