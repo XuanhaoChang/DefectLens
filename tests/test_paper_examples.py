@@ -1,6 +1,7 @@
 import hashlib
 from html.parser import HTMLParser
 import json
+import re
 from pathlib import Path
 import tempfile
 import unittest
@@ -35,6 +36,17 @@ class PaperExamplesTest(unittest.TestCase):
         self.assertRegex(manifest["revision"], r"^[0-9a-f]{40}$")
         self.assertEqual(set(parser.media), {item["path"] for item in manifest["assets"]})
         self.assertEqual(len(parser.media), 11)
+
+    def test_chapter_seeks_fit_current_project_video(self):
+        html = (ROOT / "paper_site/index.html").read_text()
+        manifest = json.loads((ROOT / "paper_site/project-video-media.json").read_text())
+        seeks = [float(value) for value in re.findall(r'data-seek="([0-9.]+)"', html)]
+        self.assertTrue(seeks)
+        self.assertEqual(seeks, sorted(set(seeks)))
+        self.assertTrue(all(0 <= seek < manifest["duration_seconds"] for seek in seeks))
+        player = re.search(r'<video id="demo-player".*?</video>', html, re.DOTALL).group()
+        for asset in manifest["assets"]:
+            self.assertIn("assets/" + asset["path"], player)
 
     def test_download_rejects_corrupted_media(self):
         with tempfile.TemporaryDirectory() as directory:
