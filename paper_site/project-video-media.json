@@ -1,15 +1,15 @@
 {
   "repository": "XuanhaoChang/DefectLens-Demo",
-  "revision": "afa39a993d953b28d5ce8b2d17175d99e396270e",
+  "revision": "736329a6327392171395fdb6cfb6fe50d67250e4",
   "duration_seconds": 88.85,
   "assets": [
     {
-      "path": "defectlens-demo-aiden-v5.mp4",
-      "sha256": "8edb26c0614a6a0886ed217a47aa9eabe655ed6f7843d0b1aa6094e6ac435f63"
+      "path": "defectlens-demo-aiden-v6.mp4",
+      "sha256": "e555729ce81e260eb43773435d5914f5a26a76bd0be5bcd32e4ae313ebb83c4b"
     },
     {
-      "path": "defectlens-demo-aiden-v5-poster.jpg",
-      "sha256": "6117c752e8e663c686d93ec7e1239abde6fcfc18710e5cbb7e3581c994012472"
+      "path": "defectlens-demo-aiden-v6-poster.jpg",
+      "sha256": "08a632079dd1ee045d851712b91f0b3a8b80504e6da4c00267e45b636f78b156"
     }
   ]
 }
