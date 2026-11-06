@@ -41,9 +41,17 @@ jobs:
           node-version: '22'
       - run: python -m pip install -r requirements-web.txt
       - name: Set up FFmpeg and ffprobe
-        uses: FedericoCarboni/setup-ffmpeg@36c6454b5a2348e7794ba2d82a21506605921e3d # v3
-        with:
-          ffmpeg-version: release
+        run: |
+          if ! command -v ffmpeg >/dev/null || ! command -v ffprobe >/dev/null; then
+            # Use Ubuntu's signed packages; unrelated third-party apt sources
+            # must not prevent the paper site from being published.
+            sudo apt-get update -o Acquire::Retries=3 \
+              -o Dir::Etc::sourcelist=/etc/apt/sources.list.d/ubuntu.sources \
+              -o Dir::Etc::sourceparts=- -o APT::Get::List-Cleanup=0
+            sudo apt-get install --no-install-recommends -y ffmpeg
+          fi
+          ffmpeg -version
+          ffprobe -version
       - run: python -m unittest discover -s tests -p 'test_web_api.py' -v
       - run: python -m unittest discover -s tests -p 'test_web_app.py' -v
       - run: node --check web_app/app.js
