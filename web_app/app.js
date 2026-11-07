@@ -131,7 +131,6 @@ $("references").addEventListener("change", () => {
   state.referenceURLs = [];
   $("reference-previews").replaceChildren();
   const files = Array.from($("references").files);
-  if (files.length > 4) { notify("参考图最多 4 张，请重新选择。"); $("references").value = ""; return; }
   for (const file of files) {
     const url = URL.createObjectURL(file);
     state.referenceURLs.push(url);

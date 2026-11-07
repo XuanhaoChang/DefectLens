@@ -1,6 +1,8 @@
 """Private API integration tests; the subprocess is an explicit test fixture."""
 from dataclasses import replace
 import importlib.util
+import csv
+import io
 import json
 from pathlib import Path
 import shutil
@@ -179,6 +181,28 @@ class WebAPITests(unittest.TestCase):
         denied = self.client.get("/api/health", headers={**self.headers, **header,
             "Origin": "https://untrusted.example"})
         self.assertEqual(denied.status_code, 403)
+
+    def test_many_reference_images_preserve_upload_order(self):
+        from PIL import Image
+
+        buffer = io.BytesIO()
+        Image.new("RGB", (16, 16), "white").save(buffer, format="PNG")
+        names = [f"input-{index}.png" for index in range(12)]
+        files = [("video", ("video.mp4", self.video, "video/mp4"))]
+        files.extend(("references", (name, buffer.getvalue(), "image/png")) for name in names)
+        response = self.client.post("/api/jobs", headers=self.headers,
+                                    data={"prompt": "reference upload fixture"}, files=files)
+        self.assertEqual(response.status_code, 202, response.text)
+        job = self.wait_for(response.json()["id"], {"completed", "failed"})
+        self.assertEqual(job["status"], "completed", job)
+        self.assertEqual(job["input"]["references"], names)
+        with (self.settings.data / job["id"] / "input.csv").open(newline="") as stream:
+            row = next(csv.DictReader(stream))
+        references = json.loads(row["reference_image_urls"])
+        self.assertEqual([Path(path).name for path in references],
+                         [f"reference_{index}.png" for index in range(12)])
+        health = self.client.get("/api/health", headers=self.headers).json()
+        self.assertIsNone(health["limits"]["max_references"])
 
     def test_successful_upload_cli_job_and_export(self):
         response = self.submit()

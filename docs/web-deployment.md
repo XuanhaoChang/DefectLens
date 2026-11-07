@@ -217,7 +217,7 @@ the underlying report; zero issues is not proof that the video has no defects.
 Confidence is not calibrated accuracy. No Precision/Recall/F1 is calculated
 without human ground truth.
 
-Uploads are capped at 128 MiB total, four reference images (10 MiB each),
+Uploads are capped at 128 MiB total, 10 MiB per reference image,
 60 seconds of video and 4096 × 2160 video pixels. The maintained deployment uses
 90 MiB total uploads. There is no public task list, but individual jobs and
 reports are accessible to anyone who knows their IDs. Uploaded media may be

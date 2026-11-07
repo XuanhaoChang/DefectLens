@@ -76,7 +76,7 @@ def create_app(settings: Settings):
                 "notifications": "websocket",
                 "access_mode": "public" if settings.public_access else "private",
                 "limits": {"max_upload_bytes": settings.max_upload_bytes,
-                           "max_duration_sec": settings.max_duration_sec, "max_references": 4}}
+                           "max_duration_sec": settings.max_duration_sec, "max_references": None}}
 
     @app.get("/api/jobs")
     def list_jobs(request: Request):
@@ -226,8 +226,8 @@ def create_app(settings: Settings):
             raise HTTPException(422, "请填写文本描述，最多 10000 字符。")
         if len(form.getlist("video")) != 1 or not isinstance(video, UploadFile):
             raise HTTPException(422, "请选择一个生成视频。")
-        if len(refs) > 4 or any(not isinstance(item, UploadFile) for item in refs):
-            raise HTTPException(422, "最多上传 4 张参考图。")
+        if any(not isinstance(item, UploadFile) for item in refs):
+            raise HTTPException(422, "参考图必须为上传的图片文件。")
         with tempfile.TemporaryDirectory(prefix="upload-", dir=settings.data) as directory:
             folder = Path(directory)
             total = 0
@@ -281,7 +281,7 @@ def create_app(settings: Settings):
         try:
             jobs.available()
             async with uploads:
-                async with request.form(max_files=5, max_fields=1, max_part_size=40000) as form:
+                async with request.form(max_files=float("inf"), max_fields=1, max_part_size=40000) as form:
                     return await asyncio.to_thread(persist_uploads, form, jobs)
         except OverflowError as exc:
             raise HTTPException(429, str(exc)) from None

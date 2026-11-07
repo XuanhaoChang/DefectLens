@@ -211,7 +211,7 @@ class JobManager:
             folder = self.settings.data / job_id
             staging.rename(folder)
             video = next(folder.glob("video.*"))
-            references = sorted(folder.glob("reference_*"))
+            references = sorted(folder.glob("reference_*"), key=lambda path: int(path.stem.removeprefix("reference_")))
             with (folder / "input.csv").open("w", encoding="utf-8", newline="") as stream:
                 writer = csv.writer(stream)
                 writer.writerow(SOURCE_COLUMNS)
