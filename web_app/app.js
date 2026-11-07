@@ -5,7 +5,7 @@ const $ = (id) => document.getElementById(id);
 const state = { base: "", connected: false, ready: false, job: null,
   events: null, generation: 0, previewJobId: null, videoURL: null, referenceURLs: [], submitting: false,
   maxUploadBytes: 128 * 1048576 };
-const jobLabels = { queued: "队列等待中", running: "avagent 正在评测", completed: "评测完成", failed: "评测失败", cancelled: "已停止" };
+const jobLabels = { queued: "队列等待中", running: "DefectLens 正在评测", completed: "评测完成", failed: "评测失败", cancelled: "已停止" };
 const checkLabels = {
   reference_subject_identity: "参考主体一致性", entity_count_spatial_composition: "实体数量与空间构图",
   remaining_hard_instruction_compliance: "硬性指令遵循", motion_physics_continuity: "动作、物理与连续性",
@@ -42,7 +42,7 @@ function setControls() {
   $("input-fields").disabled = state.submitting || !!active;
   $("refresh-job").disabled = !state.connected || !state.job;
   $("submit-hint").textContent = state.submitting ? "正在上传并创建任务…" :
-    active ? "正在评测…" : state.ready ? "由 avagent 分析视频" : "服务暂不可用";
+    active ? "正在评测…" : state.ready ? "由 DefectLens 分析视频" : "服务暂不可用";
 }
 function safeBase(input) {
   const url = new URL(input);
@@ -306,7 +306,7 @@ $("download").addEventListener("click", async () => {
   try {
     const blob = await (await api(`/api/jobs/${jobId}/report.jsonl`)).blob();
     const url = URL.createObjectURL(blob); const link = node("a");
-    link.href = url; link.download = `avagent-eval-${jobId}.jsonl`; link.click();
+    link.href = url; link.download = `DefectLens-${jobId}.jsonl`; link.click();
     setTimeout(() => URL.revokeObjectURL(url), 1000);
   } catch (error) { notify(error.message); }
 });

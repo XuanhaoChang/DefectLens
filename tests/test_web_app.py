@@ -60,7 +60,7 @@ class WebAppTests(unittest.TestCase):
         self.assertIn('id="retry-connection"', self.page)
 
     def test_personal_repository_and_explicit_public_configuration(self):
-        self.assertIn("https://github.com/XuanhaoChang/AVagent-Eval", self.page)
+        self.assertIn("https://github.com/XuanhaoChang/DefectLens", self.page)
         config = (ROOT / "web_app/config.js").read_text()
         base = re.search(r'apiBase:\s*"([^"]*)"', config).group(1)
         self.assertTrue(not base or base.startswith("https://"))
