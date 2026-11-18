@@ -1,12 +1,12 @@
 # Contributing
 
-Thank you for improving AVAgent.
+Thank you for improving DefectLens.
 
 ## Setup
 
 ```bash
-git clone --recurse-submodules https://github.com/XuanhaoChang/AVagent.git
-cd AVagent
+git clone --recurse-submodules https://github.com/XuanhaoChang/DefectLens.git
+cd DefectLens
 python -m venv .venv
 source .venv/bin/activate
 python -m pip install -r requirements-dev.txt

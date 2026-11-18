@@ -1,10 +1,10 @@
-# avagent-eval website
+# DefectLens web console
 
 The single-page console in `web_app/` submits uploads to the API in
 `av_eval/web_api.py`. The server runs **this repository's `run_avagent.py`** in
 its existing evaluation environment; this is not a direct-model baseline.
 
-The intended public site is `https://xuanhaochang.github.io/AVagent-Eval/`.
+The intended public site is `https://xuanhaochang.github.io/DefectLens/`.
 GitHub Pages hosts only the frontend. A separate **administrator-approved HTTPS
 endpoint** must route requests to the server's local API. A public frontend
 alone does not make the backend reachable.
@@ -91,7 +91,7 @@ does not establish an HTTPS ingress.
 
 Set `web_app/config.js`'s public `apiBase` to the approved HTTPS URL.
 Never put credentials in this file. The default CORS origin is
-`https://xuanhaochang.github.io` (origins do not include `/AVagent-Eval/`).
+`https://xuanhaochang.github.io` (origins do not include `/DefectLens/`).
 The Origin allowlist limits browser integration, but does not make this public
 API private. Private API deployments additionally enforce bearer authentication.
 

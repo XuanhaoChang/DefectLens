@@ -1,6 +1,6 @@
 # Architecture
 
-AVAgent separates observations, tool execution state, and defect decisions so
+DefectLens (`AVAgent` engine) separates observations, tool execution state, and defect decisions so
 an unavailable signal cannot silently become a negative finding.
 
 ## Execution flow
